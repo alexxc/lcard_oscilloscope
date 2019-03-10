@@ -23,3 +23,6 @@ lib/x502api/lib/lcspec/.hg
 lib/x502api/lib/crc/.hg
 lib/x502api/.hg
 pulses.npz
+CMakeLists.txt.user
+CMakeLists.txt.user.4.8-pre1
+CMakeLists.txt.user.c54c0a6
