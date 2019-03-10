@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=@PRJ_APP_TITLE@
+GenericName=@PRJ_DESCR_EN@
+GenericName[ru]=@PRJ_DESCR_RU@
+Exec=@PROJECT@
+Terminal=false
+Categories=Education;Science;DataVisualization;
+InitialPreference=9

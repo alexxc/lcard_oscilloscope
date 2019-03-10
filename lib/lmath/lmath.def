@@ -1,0 +1,13 @@
+LIBRARY     lmath.dll
+
+EXPORTS
+        lmath_scaled_window
+        lmath_window
+        lmath_acdc_estimation
+        lmath_amp_pha_spectrum
+        lmath_find_peak_freq
+        lmath_find_peak_freq_spectrum
+        lmath_calc_spectrum_params
+        lmath_proc_fir
+
+

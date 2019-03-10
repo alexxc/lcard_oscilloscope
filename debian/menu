@@ -1,0 +1,6 @@
+?package(ltrmanager):needs="X11"\
+  section="Applications/Science/Data Analysis"\
+  title="LTR Manager" command="/usr/bin/ltrmanager"\
+  icon="/usr/share/pixmaps/ltr.xpm" \
+  longtitle="Qt frontend for ltrd" \
+  

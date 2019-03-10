@@ -1,0 +1,112 @@
+Name: @PACKAGE_NAME@
+Version: @PACKAGE_VERSION@
+Release: 1
+Group:   Applications/Engineering
+
+Vendor: L-Card
+URL: http://www.lcard.ru
+License: GPL-2.0+
+
+Source: @PACKAGE_SRC_TAR_NAME@
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
+BuildRequires:  cmake >= 2.8.11, libx502api1-devel, liblmath1-devel
+BuildRequires:  gcc-c++
+
+BuildRequires:  pkgconfig(Qt5Core) >= 5.2
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Widgets)
+BuildRequires:  pkgconfig(Qt5Network)
+BuildRequires:  pkgconfig(Qt5PrintSupport)
+
+%if 0%{?fedora} 
+BuildRequires: qt5-qttools-devel
+%endif
+
+%if 0%{?suse_version}
+BuildRequires: libqt5-qttools-devel
+%endif
+
+
+%if 0%{?suse_version}
+BuildRequires: update-desktop-files
+%endif
+
+%if 0%{?fedora}
+BuildRequires: desktop-file-utils
+%endif 
+
+%if 0%{?fedora} == 21
+BuildRequires: aajohan-comfortaa-fonts
+%endif 
+
+Requires: lboot
+
+Summary: @PRJ_DESCR_EN@
+%description 
+ This is demo application for L-Card E502 and L502 devices.
+
+%prep
+#извлечение исходников из архива
+%setup
+
+%build
+
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DLQMEASSTUDIO_BUILD_WITH_QT5=ON
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+# В Leap42 не проходят другие категории для Science кроме Math
+%if 0%{?suse_version} == 1315 || 0%{?suse_version} > 1320
+%suse_update_desktop_file @PACKAGE_NAME@ Science Math
+%endif
+
+%if 0%{?fedora}
+desktop-file-validate %{buildroot}/%{_datadir}/applications/@PACKAGE_NAME@.desktop
+%endif
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+
+%post
+%if 0%{?suse_version} >= 1140
+%desktop_database_post
+#%icon_theme_cache_post
+%endif
+
+#обновляем кеш иконок (как написано в FedoraPackagingGuide)
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+
+
+
+%postun
+%if 0%{?suse_version} >= 1140
+%desktop_database_postun
+#%icon_theme_cache_postun
+%endif
+
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+
+%if 0%{?fedora}
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%endif
+
+
+%files 
+%defattr(0755,root,root)
+/usr/bin/@PACKAGE_NAME@
+%defattr(-,root,root)
+/usr/share/applications/@PACKAGE_NAME@.desktop
+/usr/share/@PACKAGE_NAME@

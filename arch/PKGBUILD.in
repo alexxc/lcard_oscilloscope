@@ -1,0 +1,32 @@
+pkgname=@PACKAGE_NAME@
+pkgver=@PACKAGE_VERSION@
+pkgrel=1
+pkgdesc="@PRJ_DESCR_EN@"
+arch=('i686' 'x86_64')
+url="http://lcard.ru"
+license=('GPL')
+groups=()
+depends=('qt5-base'  'x502api' 'lboot' 'lmath')
+makedepends=('cmake' 'qt5-tools' 'qt5-translations' 'x502api' 'lmath')
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=()
+source=(@PACKAGE_SRC_TAR_NAME@)
+
+
+build() {
+  cd "$srcdir/$pkgname-$pkgver"
+  cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DLQMEASSTUDIO_BUILD_WITH_QT5=ON./
+  make
+  }
+  
+package() {
+  cd "$srcdir/$pkgname-$pkgver"
+  make DESTDIR="$pkgdir/" install
+  }
+  
+  

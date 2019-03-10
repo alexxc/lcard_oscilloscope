@@ -1,0 +1,5 @@
+@PACKAGE_NAME@ (@PACKAGE_VERSION@) stable; urgency=low
+
+  * Initial Release.
+
+ -- Borisov Alexey <borisov@lcard.ru>  Sat, 07 Apr 2012 11:35:15 +0400

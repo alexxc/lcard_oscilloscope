@@ -1,0 +1,31 @@
+#ifndef LQMEAS_CONFIG_H_IN
+#define LQMEAS_CONFIG_H_IN
+
+#cmakedefine LQMEAS_DEV_LTR11
+#cmakedefine LQMEAS_DEV_LTR24
+#cmakedefine LQMEAS_DEV_LTR25
+#cmakedefine LQMEAS_DEV_LTR35
+#cmakedefine LQMEAS_DEV_LTR51
+#cmakedefine LQMEAS_DEV_LTR210
+
+#cmakedefine LQMEAS_DEV_E2010
+#cmakedefine LQMEAS_DEV_E14_440
+#cmakedefine LQMEAS_DEV_E14_140
+
+#cmakedefine LQMEAS_DEV_E502
+#cmakedefine LQMEAS_DEV_L502
+
+
+#cmakedefine LQMEAS_DEV_AGILENT_3458
+
+#cmakedefine LQMEAS_NO_GUI
+
+#cmakedefine LQMEAS_USE_NETWORK_BROWSER
+
+#cmakedefine LQMEAS_SERVICE_MULTIMETER_DC_ONLY
+
+
+
+
+
+#endif // LQMEAS_CONFIG_H_IN

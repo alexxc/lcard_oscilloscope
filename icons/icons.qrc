@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>err.png</file>
+        <file>repeat.png</file>
+        <file>start.png</file>
+        <file>stop.png</file>
+        <file>configure.png</file>
+        <file>info.png</file>
+        <file>refresh.png</file>
+        <file>exit.png</file>
+        <file>add.png</file>
+        <file>remove.png</file>
+        <file>pci.png</file>
+        <file>usb.png</file>
+        <file>ipaddr.png</file>
+        <file>ru.png</file>
+        <file>en.png</file>
+        <file>netbrowse.png</file>
+    </qresource>
+</RCC>

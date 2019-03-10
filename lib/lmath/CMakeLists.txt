@@ -1,0 +1,65 @@
+cmake_minimum_required(VERSION 2.6)
+
+set(PROJECT lmath)
+set(VERSION 0.0.1)
+
+project(${PROJECT} C)
+
+
+set(SOURCES lmath.c)
+set(HEADERS lmath.h)
+
+if(WIN32)
+    set(SOURCES ${SOURCES} lmath.def)
+endif(WIN32)
+
+if(NOT LMATH_INSTALL_DIR_LIB)
+  set(LMATH_INSTALL_DIR_LIB lib)
+endif(NOT LMATH_INSTALL_DIR_LIB)
+
+if(NOT LMATH_INSTALL_DIR_RUNTIME)
+  set(LMATH_INSTALL_DIR_RUNTIME lib)
+endif(NOT LMATH_INSTALL_DIR_RUNTIME)
+
+if(NOT LMATH_INSTALL_DIR_INCLUDE)
+  set(LMATH_INSTALL_DIR_INCLUDE include)
+endif(NOT LMATH_INSTALL_DIR_INCLUDE)
+
+
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/Modules/")
+find_package(FFTW3 REQUIRED)
+
+include_directories(${FFTW3_INCLUDE_DIRS})
+
+add_library(${PROJECT} SHARED ${HEADERS} ${SOURCES})
+
+set_target_properties(${PROJECT} PROPERTIES VERSION ${VERSION})
+set_target_properties(${PROJECT} PROPERTIES SOVERSION 1)
+
+target_link_libraries(${PROJECT} ${FFTW3_LIBRARIES})
+
+
+if(WIN32)
+    set(LMATH_BINARY  "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT}.dll" PARENT_SCOPE)
+endif(WIN32)
+
+
+if(WIN32)
+  install(TARGETS ${PROJECT} RUNTIME DESTINATION ${LMATH_INSTALL_DIR_RUNTIME})
+  install(TARGETS ${PROJECT} ARCHIVE DESTINATION ${LMATH_INSTALL_DIR_LIB})
+else(WIN32)
+  install(TARGETS ${PROJECT} DESTINATION ${LMATH_INSTALL_DIR_LIB})
+endif(WIN32)
+
+install(FILES lmath.h DESTINATION ${LMATH_INSTALL_DIR_INCLUDE})
+
+if(UNIX)
+    set(CMAKE_PACKAGES ${CMAKE_CURRENT_SOURCE_DIR}/packages/packages.cmake)
+    if(NOT OSC_PROJECT)
+        set(OSC_PROJECT      home:l-card)
+    endif(NOT OSC_PROJECT)
+    
+    set(PACKAGE_NAME     ${PROJECT})
+    set(PACKAGE_VERSION  ${VERSION})    
+    include(${CMAKE_PACKAGES})
+endif(UNIX)

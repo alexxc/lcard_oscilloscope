@@ -1,0 +1,80 @@
+Name: @PACKAGE_NAME@
+Version: @PACKAGE_VERSION@
+Release: 1
+Group:   Development/Libraries/C and C++
+
+Vendor: L-Card
+URL: http://www.lcard.ru
+License: LGPL-3.0+
+
+Source: @PACKAGE_SRC_TAR_NAME@
+
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+
+BuildRequires: cmake >= 2.6, fftw-devel
+
+
+Summary: Source package for L-Card mathematical library
+
+%description 
+L-Card mathematical library
+
+%prep
+#извлечение исходников из архива
+%setup
+
+%build
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=%{_prefix} \
+      -DLMATH_INSTALL_DIR_LIB=%{_libdir} -DLMATH_INSTALL_DIR_INCLUDE=%{_includedir}
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+
+
+#---------- liblmath1  ---------------
+
+%package -n liblmath1
+Summary: L-Card mathematical library
+Group:   System/Libraries
+
+
+
+%post -n liblmath1
+ldconfig
+
+%postun -n liblmath1
+ldconfig
+
+%files -n liblmath1
+%defattr(0644,root,root)
+%{_libdir}/liblmath.so.*
+
+%description -n liblmath1
+This package contain the shared object files for L-Card mathematical library
+
+
+
+#---------- package with developers files  ---------------
+%package -n liblmath1-devel
+Summary: Developer files for  L-Card L502 and E502 devices
+Group:   Development/Libraries/C and C++
+Requires: liblmath1 = @PACKAGE_VERSION@
+
+%description -n liblmath1-devel
+This package contain developer files such as headers and linker files for 
+L-Card mathematical library.
+
+You need these files if you writing your own software. Non-developers likely 
+have little use for this package.
+
+%files -n liblmath1-devel
+%defattr(0644,root,root)
+%{_includedir}/*
+%{_libdir}/lib*.so

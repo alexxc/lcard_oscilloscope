@@ -1,0 +1,30 @@
+Source: @PACKAGE_NAME@
+Priority: optional
+Maintainer: Borisov Alexey <borisov@lcard.ru>
+Build-Depends: debhelper (>= 8.0.0), cmake, libfftw3-dev
+Standards-Version: 3.9.3
+Section: libs
+Homepage: "http://www.lcard.ru"
+
+Package: liblmath1-dev
+Section: libdevel
+Architecture: any
+Depends: liblmath1 (= ${binary:Version}),          
+         ${misc:Depends}
+Description:L-Card mathematical library
+ L-Card mathematical library
+ .
+ This package contains the development files.
+ .
+ You need these files if you writing your own software. Non-developers likely 
+ have little use for this package.
+
+Package: liblmath1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description:L-Card mathematical library
+ L-Card mathematical library.
+ .
+ This package contains the shared object files.
+

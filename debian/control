@@ -1,0 +1,13 @@
+Source: lqmeasstudio
+Section: electronics
+Priority: optional
+Maintainer: Borisov Alexey <borisov@lcard.ru>
+Build-Depends: debhelper (>= 8.0.0), cmake, qt5-default, qtbase5-dev, qttools5-dev, qttools5-dev-tools, libx502api1-dev, liblmath1-dev
+Standards-Version: 3.9.3
+Homepage: http://www.lcard.ru
+
+Package: lqmeasstudio
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, lboot
+Description: Measurement software
+ This is demo application for L-Card E502 and L502 devices.
